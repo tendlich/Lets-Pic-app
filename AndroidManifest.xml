@@ -74,7 +74,7 @@
             >
         </activity>
         <activity
-            android:name="com.example.letspicapp.views.ReminderOverview"
+            android:name="com.example.letspicapp.views.ReminderOverviewView"
             android:label="@string/title_activity_reminder_overview" >
         </activity>
     </application>

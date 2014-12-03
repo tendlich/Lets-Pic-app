@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.letspicapp.technicalservices.Persistence;
-import com.example.letspicapp.views.ReminderOverview;
+import com.example.letspicapp.views.ReminderOverviewView;
 
 public class CameraPreview extends Activity implements SurfaceHolder.Callback {
 	private final static String TAG = "LetsPicAppDebug";
@@ -111,7 +111,7 @@ public class CameraPreview extends Activity implements SurfaceHolder.Callback {
 	}
 
 	private void openReminderList() {
-		Intent i = new Intent(this, ReminderOverview.class);
+		Intent i = new Intent(this, ReminderOverviewView.class);
 		startActivity(i);
 	}
 

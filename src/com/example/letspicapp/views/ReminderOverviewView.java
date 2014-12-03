@@ -3,6 +3,7 @@ package com.example.letspicapp.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import ReminderOverview.ReminderListAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +21,11 @@ import com.example.letspicapp.R;
 import com.example.letspicapp.db.ReminderDataSource;
 import com.example.letspicapp.model.Alarm;
 
-public class ReminderOverview extends ListActivity {
+public class ReminderOverviewView extends ListActivity {
 	
 	 private ReminderDataSource datasource;
 	 private List<Alarm> alarms;
+	 private ReminderListAdapter listAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class ReminderOverview extends ListActivity {
 				
 				Alarm alarm = alarms.get(position);
 				
-				Intent i = new Intent(ReminderOverview.this,MainActivity.class);
+				Intent i = new Intent(ReminderOverviewView.this,MainActivity.class);
 				i.putExtras(alarm.toBundle());
 //				i.putExtra("name", alarm.getName());
 //				i.putExtra("path", alarm.getImagePath());
@@ -76,10 +78,11 @@ public class ReminderOverview extends ListActivity {
 				break;
 		}
 		datasource.close();
-
-		ArrayAdapter<Alarm> adapter = new ArrayAdapter<Alarm>(this,
-		        android.R.layout.simple_list_item_1, alarms);
-		setListAdapter(adapter);
+		listAdapter = new ReminderListAdapter(this, R.layout.list_item, alarms);
+		
+//		ArrayAdapter<Alarm> adapter = new ArrayAdapter<Alarm>(this,
+//		        android.R.layout.simple_list_item_1, alarms);
+		setListAdapter(listAdapter);
 	}
 	
 	@Override

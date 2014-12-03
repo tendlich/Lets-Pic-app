@@ -14,17 +14,17 @@
 
         <RadioButton
             android:id="@+id/displayAllReminders"
-            android:onClick="test"
+            android:onClick="display"
             android:text="All" />
 
         <RadioButton
             android:id="@+id/displayAlarmReminders"
-            android:onClick="test"
+            android:onClick="display"
             android:text="Alarm" />
 
         <RadioButton
             android:id="@+id/displayDeletionReminders"
-            android:onClick="test"
+            android:onClick="display"
             android:text="Deletion" />
     </RadioGroup>
 
