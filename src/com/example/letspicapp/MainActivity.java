@@ -146,6 +146,11 @@ public class MainActivity extends Activity {
 		this.path = path;
 	}
 	
+	private void addCaption(){
+		EditText editText = (EditText) findViewById(R.id.editName);
+		alarm.setCaption(editText.getText().toString()); 
+	}
+	
 	private void rename(){
 		String newPath,newName;
 		EditText editText = (EditText) findViewById(R.id.editName);
@@ -195,14 +200,16 @@ public class MainActivity extends Activity {
 	}
 	
 	public void reminder(View v){
-		if(!fromGallery) //TODO workaround
-			this.rename();
+//		if(!fromGallery) //TODO workaround
+//			this.rename();
 //		alarm = new Alarm();
+		this.addCaption();
         dateTimePicker(true).show();
 	}
 	
 	public void deletePicture(View v){
-		this.rename();
+//		this.rename();
+		this.addCaption();
 		boolean t = Persistence.getInstance().deleteImage(this.getApplicationContext(), alarm.getName());
 		Log.d("LetsPicAppDebug", "Deletion: " + t);
 	}

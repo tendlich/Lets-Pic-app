@@ -19,7 +19,7 @@ public class ReminderDataSource {
 	
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHandler;
-	private String[] allColumns = { DatabaseHandler.KEY_ID, DatabaseHandler.COLUMN_DATE, DatabaseHandler.COLUM_PATH, DatabaseHandler.COLUM_NAME,  DatabaseHandler.COLUMN_IS_ALARM };
+	private String[] allColumns = { DatabaseHandler.KEY_ID, DatabaseHandler.COLUMN_DATE, DatabaseHandler.COLUMN_PATH, DatabaseHandler.COLUMN_NAME,  DatabaseHandler.COLUMN_IS_ALARM, DatabaseHandler.COLUMN_CAPTION };
 	
 	 public ReminderDataSource(Context context) {
 		 dbHandler = new DatabaseHandler(context);
@@ -37,8 +37,9 @@ public class ReminderDataSource {
 		 this.open();
 		 ContentValues values = new ContentValues();
 		 values.put(DatabaseHandler.COLUMN_DATE, alarm.getTime());
-		 values.put(DatabaseHandler.COLUM_PATH, alarm.getImagePath());
-		 values.put(DatabaseHandler.COLUM_NAME, alarm.getName());
+		 values.put(DatabaseHandler.COLUMN_PATH, alarm.getImagePath());
+		 values.put(DatabaseHandler.COLUMN_NAME, alarm.getName());
+		 values.put(DatabaseHandler.COLUMN_CAPTION, alarm.getCaption());
 		 values.put(DatabaseHandler.COLUMN_IS_ALARM, 1);
 		 long id = database.insert(DatabaseHandler.TABLE_REMINDER, null, values);
 		 alarm.setId(id);
@@ -82,8 +83,10 @@ public class ReminderDataSource {
 
 	 public int updateReminder(Alarm alarm){
 		 ContentValues values = new ContentValues();
-		 values.put(DatabaseHandler.COLUM_PATH, alarm.getId());
 		 values.put(DatabaseHandler.COLUMN_DATE, alarm.getTime());
+		 values.put(DatabaseHandler.COLUMN_PATH, alarm.getImagePath());
+		 values.put(DatabaseHandler.COLUMN_NAME, alarm.getName());
+		 values.put(DatabaseHandler.COLUMN_CAPTION, alarm.getCaption()); 
 		 this.open();
 		 database.update(DatabaseHandler.TABLE_REMINDER,
 				 values, DatabaseHandler.KEY_ID + " = " + alarm.getId(), null);

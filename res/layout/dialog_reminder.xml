@@ -18,7 +18,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete after" />
+            android:text="Delete after" 
+            android:enabled="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -29,12 +30,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save image" />
+            android:text="Save image" 
+            android:enabled="false"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete now" />
+            android:text="Delete now" 
+            android:enabled="false"/>
     </LinearLayout>
 
 </LinearLayout>

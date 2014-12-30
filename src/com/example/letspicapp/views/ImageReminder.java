@@ -2,9 +2,12 @@ package com.example.letspicapp.views;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +19,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.letspicapp.CameraPreview;
@@ -36,6 +41,7 @@ import com.example.letspicapp.reminder.ReminderHandler;
 public class ImageReminder extends Activity {
 
 	private Alarm alarm;
+	Calendar time =  Calendar.getInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +53,59 @@ public class ImageReminder extends Activity {
 		
 		Log.d("ImageReminder", "Image Path: " + alarm.getImagePath());
 		
-		
-//		ImageView iV = (ImageView) findViewById(R.id.imageView42);
-//		iV.setImageBitmap(getBitmap(alarm.getImagePath()));
 		displayImage();
+	
+	}
+	
+	private DatePickerDialog dateTimePicker(final boolean reminder){
+		final Calendar c = Calendar.getInstance();
 		
-		Button remindMeOn = (Button) findViewById(R.id.remindMeOn);
-//		remindMeOn.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				
-//				
-//			}
-//		});
+		
+		final TimePickerDialog tpd = new TimePickerDialog(this,
+	        		new TimePickerDialog.OnTimeSetListener() {
+	        	
+	        	@Override
+	        	public void onTimeSet(TimePicker view, int hourOfDay,
+	        			int minute) {
+	        		time.set(Calendar.HOUR_OF_DAY, hourOfDay);
+	        		time.set(Calendar.MINUTE, minute);
+	        		time.set(Calendar.MILLISECOND, 0);
+	        		time.set(Calendar.SECOND, 0);
+	        		alarm.setTime(time);
+	        		if(reminder)
+	        			scheduleAlarm();
+	        		
+	        	}
+	        }, c.get(Calendar.HOUR_OF_DAY),  c.get(Calendar.MINUTE), true);
+	        
+	        final DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener(){
+
+				@Override
+				public void onDateSet(DatePicker view,  int year, int monthOfYear, int dayOfMonth) {
+					time.set(Calendar.YEAR, year);
+					time.set(Calendar.MONTH, monthOfYear);
+					time.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+					tpd.show();
+				}
+	        	
+	        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+	      
+	       
+	        
+	        return dpd;
+	}
+	 
+	public void scheduleAlarm() {		
+		boolean alarmSet;
+		alarmSet = ReminderHandler.getInstance().rescheduleAlarm(alarm, this);
+		
+		if(alarmSet){
+			Toast.makeText(this, "Alarm Rescheduled", Toast.LENGTH_LONG)
+			.show();
+		}
+		Intent camera  = new Intent(this, CameraPreview.class);
+		startActivity(camera);
+
 	}
 	
 	private void displayImage(){
@@ -127,14 +172,22 @@ public class ImageReminder extends Activity {
 		builder.setTitle("Title test");
 		
 		 LayoutInflater inflater = this.getLayoutInflater();
-
+		 View v = inflater.inflate(R.layout.dialog_reminder, null); 
 		    // Inflate and set the layout for the dialog
 		    // Pass null as the parent view because its going in the dialog layout
-		    builder.setView(inflater.inflate(R.layout.dialog_reminder, null));
+		builder.setView(v);
+		Button remindMeOn = (Button) v.findViewById(R.id.remindMeOn);
+		remindMeOn.setOnClickListener(new Button.OnClickListener() {
+
+			public void onClick(View v) {
+				dateTimePicker(true).show() ;
+			}
+		});
 
 		// 3. Get the AlertDialog from create()
-		AlertDialog dialog = builder.create();
-		dialog.show();
+//		AlertDialog dialog = builder.create();
+		builder.create().show();
+		
 	}
 	
 	@Override

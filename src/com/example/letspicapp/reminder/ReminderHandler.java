@@ -31,6 +31,14 @@ public class ReminderHandler {
 		return setAlarm(alarm, context);
 	}
 	
+	public boolean rescheduleAlarm(Alarm alarm, Context context){
+		
+		ReminderDataSource dataSource = new ReminderDataSource(context);
+		dataSource.updateReminder(alarm);
+		
+		return setAlarm(alarm, context);
+	}
+	
 	public boolean scheduleAlarm(Alarm alarm,Context context){
 
 		//save it to the db
