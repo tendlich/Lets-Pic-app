@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -47,8 +48,9 @@ public class ImageReminder extends Activity {
 		Log.d("ImageReminder", "Image Path: " + alarm.getImagePath());
 		
 		
-		ImageView iV = (ImageView) findViewById(R.id.imageView42);
-		iV.setImageBitmap(getBitmap(alarm.getImagePath()));
+//		ImageView iV = (ImageView) findViewById(R.id.imageView42);
+//		iV.setImageBitmap(getBitmap(alarm.getImagePath()));
+		displayImage();
 		
 		Button remindMeOn = (Button) findViewById(R.id.remindMeOn);
 //		remindMeOn.setOnClickListener(new OnClickListener() {
@@ -59,6 +61,18 @@ public class ImageReminder extends Activity {
 //				
 //			}
 //		});
+	}
+	
+	private void displayImage(){
+		try {
+			Bitmap bmImg;
+			bmImg = BitmapFactory.decodeStream(new FileInputStream(alarm.getImagePath()));
+			BitmapDrawable background = new BitmapDrawable(bmImg);
+			getWindow().setBackgroundDrawable(background);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void onClick(View v){

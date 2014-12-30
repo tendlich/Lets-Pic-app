@@ -7,38 +7,53 @@
     <SurfaceView
         android:id="@+id/surfaceview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="100" />
+        android:layout_height="fill_parent"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="bottom"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/reminder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/capture_image"
-            android:text="Reminders" />
-
-        <Button
             android:id="@+id/open_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/capture_image"
-            android:text="Gallery" />
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/ic_action_picture"
+            android:text="Gallery"
+            android:textColor="@android:color/transparent" />           
+            
+        <Button
+            android:id="@+id/reminder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_action_view_as_list"
+            android:text="Reminders"
+            android:textColor="@android:color/transparent" />
 
         <Button
             android:id="@+id/capture_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
- android:layout_alignParentBottom="true"
- 
-            android:text="Capture" />
+            android:layout_marginBottom="26dp"
+            android:background="@drawable/camera_button_selector"
+            android:text="Capture"
+            android:textColor="@android:color/transparent" />
+
 
     </RelativeLayout>
 

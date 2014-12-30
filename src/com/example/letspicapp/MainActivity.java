@@ -12,6 +12,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -85,6 +87,7 @@ public class MainActivity extends Activity {
 		super.onBackPressed();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -117,8 +120,23 @@ public class MainActivity extends Activity {
 		EditText text = (EditText) findViewById(R.id.editName);
 		text.setText(Persistence.removeImageFileExtension(alarm.getName()));
 		text.setSelection(text.getText().length());
-		ImageView mImageView = (ImageView) findViewById(R.id.thumbnail);
-		mImageView.setImageBitmap(getBitmap(alarm.getImagePath()));
+//		ImageView mImageView = (ImageView) findViewById(R.id.thumbnail);
+//		mImageView.setImageBitmap(getBitmap(alarm.getImagePath()));
+		//new shit
+		displayImage();
+		
+	}
+	
+	private void displayImage(){
+		try {
+			Bitmap bmImg;
+			bmImg = BitmapFactory.decodeStream(new FileInputStream(alarm.getImagePath()));
+			BitmapDrawable background = new BitmapDrawable(bmImg);
+			getWindow().setBackgroundDrawable(background);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void setName(String name){
