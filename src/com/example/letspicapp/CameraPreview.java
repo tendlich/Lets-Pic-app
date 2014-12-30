@@ -11,6 +11,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -171,10 +172,21 @@ public class CameraPreview extends Activity implements SurfaceHolder.Callback {
 			mCamera.setParameters(parameters);
 
 			mCamera.startPreview();
+			mCamera.autoFocus(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	 public boolean onTouchEvent(MotionEvent event){
+		    if(event.getAction() == MotionEvent.ACTION_DOWN){
+		        Log.d("down", "focusing now");
+
+		        mCamera.autoFocus(null); 
+		    }
+
+		    return true;
+		}
 
 	private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
 		final double ASPECT_TOLERANCE = 0.1;
